@@ -71,7 +71,7 @@ function redrawScreen()
 	term.setBackgroundColor(colors.green)
 	term.clearLine()
 	
-	tabs = {" MP3 ", " Search ", " Playlists "}
+	tabs = {" Player ", " Search ", " Playlists "}
 	
 	for i=1,#tabs,1 do
 		if tab == i then
@@ -82,7 +82,7 @@ function redrawScreen()
 			term.setBackgroundColor(colors.green)
 		end
 		
-		term.setCursorPos((math.floor((width/#tabs)*(i-0.5)))-math.ceil(#tabs[i]/2)+1, 1)
+		term.setCursorPos((math.floor((width/#tabs)*(i-0.5)))-math.ceil(#tabs[i]/3)+1, 1)
 		term.write(tabs[i])
 	end
 
