@@ -7,6 +7,7 @@
 - [Installation](#installation)
 - [Updating](#updating)
 - [Uninstalling](#uninstalling)
+- [Playlists](#playlists)
 - [Acknowledgements](#acknowledgements)
 - [License](#license)
 - [Tips](#tips)
@@ -22,12 +23,10 @@
 ## Features
 
 - **Play Audio from YouTube**
-  - You can search for videos by name or paste a url into the search field.
+  - Search for videos by name or paste a url into the search field.
 
 - **Create Playlists**
-  - This is very barebones, but you can edit the playlists.json that ships with the program to add/remove songs from a playlist.
-    - The "id" field in the expects a youtube video id (the section at the end of the url).
-        - for example if you want this song in your playlist `https://www.youtube.com/watch?v=dQw4w9WgXcQ` you would put `dQw4w9WgXcQ` in the id field of the playlists.json.
+  - 
 
 ## Installation
 
@@ -43,28 +42,57 @@ To install **Spoticraft**, simply run these commands:
 
 ## Updating
 
-To update **Spoticraft**, follow these steps:
+Update the current version of **Spoticraft** by running this command:
+  
+`alr/update.lua`
 
-1. Uninstall the current version of **Spoticraft** by running this command:
-
-    `alr/uninstall.lua`
-
-2. Install via wget by running this command:
-
-    `wget https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/spoticraft.lua`
-
-3. To run the program just type this:
-
-    `spoticraft.lua`
-
-
-Your playlists will be lost during the update process, I plan to fix this eventually.
+Your playlists will not be lost during the update process.
 
 ## Uninstalling
 
 Uninstall the current version of **Spoticraft** by running this command:
   
 `alr/uninstall.lua`
+
+## Playlists
+
+Spoticraft supports custom playlists through a `playlists.json` file. You can edit this file to add, remove, or rearrange songs in your playlists.
+
+#
+
+### Song Format
+Each song entry requires a **YouTube video ID** in the `"id"` field. This is the unique code at the end of a YouTube URL.  
+
+Example:  
+If the song URL is:  
+https://www.youtube.com/watch?v=dQw4w9WgXcQ  
+
+The "id" field should contain:  
+`dQw4w9WgXcQ`
+
+#
+
+### Setting Up Playlists
+There are two main ways to set up playlists:
+
+#### Option 1: Edit the Local playlists.json
+1. Navigate to the alr/ folder:  
+   `cd alr/`
+2. Open the playlists file for editing:  
+   `edit playlists.json`
+3. Add or remove songs as needed.
+
+#### Option 2: Use a Template and the Playlist Downloader
+1. Download the [Playlist Template](https://github.com/AriesLR/Spoticraft/releases/download/v1.0.0/playlists.json).
+2. Edit the template to your liking.
+3. Upload it somewhere accessible online (e.g., GitHub).  
+4. Run Spoticraft's playlist downloader:  
+   `alr/download-playlist.lua`
+5. Paste the URL of your uploaded playlist and press **Enter**.
+6. Now load up Spoticraft and enjoy your new playlist.
+
+Example URL for the default playlist on GitHub:  
+https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/lib/playlists/default/playlists.json
  
 ## Acknowledgements
 - [Terreng](https://github.com/terreng) - For creating the [base](https://github.com/terreng/computercraft-streaming-music) for this ComputerCraft: Tweaked program.

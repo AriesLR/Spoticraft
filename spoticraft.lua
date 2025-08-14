@@ -1,4 +1,5 @@
 local scriptUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/program/spoticraft-logic.lua?raw=1"
+local updateUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/program/update.lua?raw=1"
 local uninstallUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/program/uninstall.lua?raw=1"
 local playlistsUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/playlists/default/playlists.json?raw=1"
 local targetDir = "/alr"
@@ -37,6 +38,9 @@ local mainScriptPath = downloadFile(scriptUrl, targetDir)
 
 -- Download uninstaller
 downloadFile(uninstallUrl, targetDir)
+
+-- Download updater
+downloadFile(updatelUrl, targetDir)
 
 -- Download playlists.json
 local playlistsPath = targetDir .. "/playlists.json"

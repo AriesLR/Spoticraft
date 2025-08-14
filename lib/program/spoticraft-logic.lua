@@ -1,5 +1,5 @@
 local api_base_url = "https://ipod-2to6magyna-uc.a.run.app/"
-local version = "2.3"
+local version = "1.0.0"
 
 local width, height = term.getSize()
 local tab = 1
@@ -250,14 +250,15 @@ function drawSearch()
 			term.setTextColor(colors.lightGray)
 			print("Usage: ")
 			print(" ")
-			print("- Search for a video OR paste a Youtube URL")
+			print("    - Search for a video OR paste a Youtube URL")
+			print("    - Press Enter to search")
 			print(" ")
 			print(" ")
 			print(" ")
 			print(" ")
-			print("Version: 2.3")
-			print("by Terreng")
-			print("Modified by AriesLR")
+			print(" ")
+			print(" Version: " .. version)
+			print(" by AriesLR")
 		end
 	end
 

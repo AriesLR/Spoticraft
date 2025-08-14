@@ -6,14 +6,13 @@ else
     print("/alr folder not found, skipping...")
 end
 
--- Delete the main spoticraft script
+-- Delete spoticraft.lua
 if fs.exists("/spoticraft.lua") then
     print("Deleting spoticraft.lua...")
     fs.delete("/spoticraft.lua")
 else
     print("spoticraft.lua not found, skipping...")
 end
-
 
 -- Temporary script to delete this script after it finishes
 local selfPath = "/alr/uninstall.lua"
