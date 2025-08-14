@@ -30,10 +30,15 @@
 
 ## Installation
 
-To install **Spoticraft**, simply run this command:
+To install **Spoticraft**, simply run these commands:
 
-`wget run https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/spoticraft.lua`
+1. Install via wget by running this command:
 
+    `wget https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/spoticraft.lua`
+
+2. To run the program just type this:
+
+    `spoticraft.lua`
 
 ## Updating
 
@@ -43,10 +48,13 @@ To update **Spoticraft**, follow these steps:
 
     `alr/uninstall.lua`
 
+2. Install via wget by running this command:
 
-2. Install as normal via wget by running this command:
+    `wget https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/spoticraft.lua`
 
-    `wget run https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/spoticraft.lua`
+3. To run the program just type this:
+
+    `spoticraft.lua`
 
 
 Your playlists will be lost during the update process, I plan to fix this eventually.
