@@ -38,7 +38,12 @@ local mainScriptPath = downloadFile(scriptUrl, targetDir)
 downloadFile(uninstallUrl, targetDir)
 
 -- Download playlists.json
-downloadFile(playlistsUrl, targetDir)
+local playlistsPath = targetDir .. "/playlists.json"
+if not fs.exists(playlistsPath) then
+    downloadFile(playlistsUrl, targetDir)
+else
+    print("playlists.json already exists, skipping download.")
+end
 
 -- Run the main script
 print("Running " .. mainScriptPath .. "...")
