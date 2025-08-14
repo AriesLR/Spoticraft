@@ -1,6 +1,6 @@
-local scriptUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/lib/program/spoticraft-logic.lua"
-local uninstallUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/lib/program/uninstall.lua"
-local playlistsUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/lib/playlists/default/playlists.json"
+local scriptUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/program/spoticraft-logic.lua?raw=1"
+local uninstallUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/program/uninstall.lua?raw=1"
+local playlistsUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/playlists/default/playlists.json?raw=1"
 local targetDir = "/alr"
 
 -- Ensure the directory exists
@@ -9,11 +9,12 @@ if not fs.exists(targetDir) then
     fs.makeDir(targetDir)
 end
 
--- Function to download a file (always busts cache)
+-- Function to download a file (tries to avoid GitHub's cache)
 local function downloadFile(url, dir)
-    -- Append a timestamp to force fresh download
-    local bustUrl = url .. "?t=" .. tostring(os.epoch("utc"))
+    local bustUrl = url .. "&t=" .. tostring(os.epoch("utc"))
     local fileName = url:match(".+/([^/]+)$")
+    fileName = fileName:gsub("%?.*$", "")
+
     local fullPath = dir .. "/" .. fileName
 
     print("Downloading " .. fileName .. " to " .. dir .. "...")
