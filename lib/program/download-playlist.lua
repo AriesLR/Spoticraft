@@ -63,6 +63,10 @@ function uiLoop()
                 term.setBackgroundColor(colors.black)
                 term.setTextColor(colors.lightGray)
                 term.setCursorPos(2, 7)
+                -- Delete old playlists.json if it exists
+                if fs.exists("/alr/playlists.json") then
+                    fs.delete("/alr/playlists.json")
+                end
                 -- Download using wget to /alr
                 shell.run("wget", last_input, "/alr/playlists.json")
                 term.setCursorPos(2, 16)
