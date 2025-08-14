@@ -1,13 +1,14 @@
 local api_base_url = "https://ipod-2to6magyna-uc.a.run.app/"
-local version = "2.2"
+local version = "2.3"
 
 local width, height = term.getSize()
 local tab = 1
 
--- Playlist variables
-local playlists = {}         -- Loaded playlists
-local selectedPlaylist = nil -- Currently selected playlist
-local in_playlist = false    -- Whether user is viewing a playlist
+local playlists = {}
+local selectedPlaylist = nil
+local in_playlist = false
+local playlistPage = 1
+local SONGS_PER_PAGE = 5
 
 local waiting_for_input = false
 local last_search = nil
@@ -42,11 +43,7 @@ if #speakers == 0 then
 	error("No speakers attached. You need to connect a speaker to this computer. If this is an Advanced Noisy Pocket Computer, then this is a bug, and you should try restarting your Minecraft game.", 0)
 end
 
-local playlist_path = "/alr/playlists.json"
-
--- ===============================
--- Playlist Tab Support (Tab 3)
--- ===============================
+local playlist_path = "/alr/playlists.json" -- "/alr/playlists.json" for Release "/rom/alr/playlists.json" for Debug via CraftOS
 
 -- Load playlists from JSON file
 function loadPlaylists()
@@ -58,10 +55,6 @@ end
 
 -- Load playlists at startup
 playlists = loadPlaylists()
-
-print(textutils.serialise(playlists))
-
--- END PLAYLIST CODE
 
 function redrawScreen()
 	if waiting_for_input then
@@ -78,7 +71,7 @@ function redrawScreen()
 	term.setBackgroundColor(colors.green)
 	term.clearLine()
 	
-	tabs = {" Music Player ", " Search ", " Playlist "}
+	tabs = {" Player ", " Search ", " Playlists "}
 	
 	for i=1,#tabs,1 do
 		if tab == i then
@@ -248,10 +241,10 @@ function drawSearch()
 			print(" ")
 			print("- Search for a video OR paste a Youtube URL")
 			print(" ")
-			print("- Playlists are currently unsupported")
 			print(" ")
 			print(" ")
-			print("Version: 2.2")
+			print(" ")
+			print("Version: 2.3")
 			print("by Terreng")
 			print("Modified by AriesLR")
 		end
@@ -291,21 +284,61 @@ end
 
 -- Draw the playlist tab
 function drawPlaylists()
-    term.setCursorPos(2, 2)
     term.setBackgroundColor(colors.black)
-    term.setTextColor(colors.red)
-    term.write("Playlist tab loaded")
-    term.setCursorPos(2, 3)
-    term.setTextColor(colors.yellow)
-    term.write("playlists count: " .. tostring(#playlists))
+    term.setTextColor(colors.white)
+    term.setCursorPos(2,3)
 
-    for i, pl in ipairs(playlists) do
-        term.setCursorPos(2, 4 + (i-1)*3)
+    if in_playlist and selectedPlaylist then
+        local vids = playlists[selectedPlaylist].videos
+        local totalPages = math.ceil(#vids / SONGS_PER_PAGE)
+        local startIdx = (playlistPage - 1) * SONGS_PER_PAGE + 1
+        local endIdx = math.min(startIdx + SONGS_PER_PAGE - 1, #vids)
+
+        for i = startIdx, endIdx do
+            local video = vids[i]
+            local displayIdx = i - startIdx + 1
+            term.setCursorPos(2, 3 + (displayIdx-1)*2)
+            term.setTextColor(colors.white)
+            term.write(video.name or ("Video " .. i))
+            term.setCursorPos(2, 4 + (displayIdx-1)*2)
+            term.setTextColor(colors.lightGray)
+            term.write(video.artist or "Unknown Artist")
+        end
+
+        -- Page controls
+        term.setCursorPos(2, 3 + SONGS_PER_PAGE*2 + 1)
         term.setTextColor(colors.white)
-        term.write("Playlist: " .. tostring(pl.name))
-        term.setCursorPos(2, 5 + (i-1)*3)
-        term.setTextColor(colors.lightGray)
-        term.write("Videos: " .. tostring(#pl.videos))
+        term.setBackgroundColor(colors.gray)
+        if playlistPage > 1 then
+            term.write("< Prev ")
+        end
+        term.setBackgroundColor(colors.gray)
+        term.write(" Page " .. playlistPage .. "/" .. totalPages .. " ")
+        if playlistPage < totalPages then
+            term.write(" Next >")
+        end
+
+        -- Back button
+        term.setCursorPos(2, 3 + SONGS_PER_PAGE*2 + 3)
+        term.setTextColor(colors.white)
+        term.setBackgroundColor(colors.gray)
+        term.write("Back")
+
+		-- Add All to Queue button
+		term.setCursorPos(10, 3 + SONGS_PER_PAGE*2 + 3)
+		term.setTextColor(colors.white)
+		term.setBackgroundColor(colors.gray)
+		term.write("Add All to Queue")
+    else
+        -- Show playlists (no paging needed)
+        for i, pl in ipairs(playlists) do
+            term.setCursorPos(2, 3 + (i-1)*2)
+            term.setTextColor(colors.white)
+            term.write(pl.name)
+            term.setCursorPos(2, 4 + (i-1)*2)
+            term.setTextColor(colors.lightGray)
+            term.write(#pl.videos .. " video(s)")
+        end
     end
 end
 
@@ -313,13 +346,52 @@ end
 function handlePlaylistClick(x, y)
     if in_playlist and selectedPlaylist then
         local vids = playlists[selectedPlaylist].videos
-        -- Back button
-        if y == 3 + #vids*2 + 1 then
-            in_playlist = false
-            selectedPlaylist = nil
-            redrawScreen()
-            return
-        end
+        local totalPages = math.ceil(#vids / SONGS_PER_PAGE)
+		-- Prev button
+		if playlistPage > 1 and y == 3 + SONGS_PER_PAGE*2 + 1 and x >= 2 and x <= 8 then
+			playlistPage = playlistPage - 1
+			redrawScreen()
+			return
+		end
+		-- Next button
+		local pageText = " Page " .. playlistPage .. "/" .. totalPages .. " "
+		local nextButtonStart, nextButtonEnd
+
+		if playlistPage == 1 then
+			nextButtonStart = 9 + #pageText - 7
+		else
+			nextButtonStart = 9 + #pageText
+		end
+		nextButtonEnd = nextButtonStart + 6
+
+		if playlistPage < totalPages and y == 3 + SONGS_PER_PAGE*2 + 1 and x >= nextButtonStart and x <= nextButtonEnd then
+			playlistPage = playlistPage + 1
+			redrawScreen()
+			return
+		end
+		-- Back button
+		if y == 3 + SONGS_PER_PAGE*2 + 3 and x >= 2 and x <= 7 then
+			in_playlist = false
+			selectedPlaylist = nil
+			playlistPage = 1
+			redrawScreen()
+			return
+		end
+
+		-- Add All to Queue button
+		if y == 3 + SONGS_PER_PAGE*2 + 3 and x >= 10 and x <= 25 then
+			for i, video in ipairs(vids) do
+				table.insert(queue, {
+					id = video.id,
+					name = video.name or "Direct Video",
+					artist = video.artist or "YouTube",
+					type = "video"
+				})
+			end
+			os.queueEvent("audio_update")
+			redrawScreen()
+			return
+		end
         -- Select a video to queue
         for i, video in ipairs(vids) do
             if y == 3 + (i-1)*2 or y == 4 + (i-1)*2 then
