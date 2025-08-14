@@ -73,7 +73,14 @@ function redrawScreen()
 	
 	tabs = {" Player ", " Search ", " Playlists "}
 	
-	for i=1,#tabs,1 do
+	local total_tab_width = 0
+	for i = 1, #tabs do
+		total_tab_width = total_tab_width + #tabs[i]
+	end
+	local gap = math.floor((width - total_tab_width) / (#tabs + 1))
+
+	local x = gap + 1
+	for i = 1, #tabs do
 		if tab == i then
 			term.setTextColor(colors.white)
 			term.setBackgroundColor(colors.lime)
@@ -81,9 +88,9 @@ function redrawScreen()
 			term.setTextColor(colors.lightGray)
 			term.setBackgroundColor(colors.green)
 		end
-		
-		term.setCursorPos(math.floor((width / #tabs) * (i - 0.5) - (#tabs[i] / 2)), 1)
+		term.setCursorPos(x, 1)
 		term.write(tabs[i])
+		x = x + #tabs[i] + gap
 	end
 
 	if tab == 1 then
