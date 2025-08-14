@@ -38,7 +38,7 @@ local mainScriptPath = downloadFile(scriptUrl, targetDir)
 downloadFile(uninstallUrl, targetDir)
 
 -- Download updater
-downloadFile(updatelUrl, targetDir)
+downloadFile(updateUrl, targetDir)
 
 -- Download playlist downloader
 downloadFile(downloaderUrl, targetDir)
