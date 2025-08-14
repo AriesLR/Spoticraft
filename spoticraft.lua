@@ -9,29 +9,36 @@ if not fs.exists(targetDir) then
     fs.makeDir(targetDir)
 end
 
--- Function to download a file if it doesn't exist
-local function downloadIfMissing(url, dir)
+-- Function to download a file (always busts cache)
+local function downloadFile(url, dir)
+    -- Append a timestamp to force fresh download
+    local bustUrl = url .. "?t=" .. tostring(os.epoch("utc"))
     local fileName = url:match(".+/([^/]+)$")
     local fullPath = dir .. "/" .. fileName
 
-    if not fs.exists(fullPath) then
-        print("Downloading " .. fileName .. " to " .. dir .. "...")
-        shell.run("wget " .. url .. " " .. fullPath)
+    print("Downloading " .. fileName .. " to " .. dir .. "...")
+    local res = http.get(bustUrl)
+    if res then
+        local f = fs.open(fullPath, "w")
+        f.write(res.readAll())
+        f.close()
+        res.close()
+        print(fileName .. " downloaded successfully.")
     else
-        print(fileName .. " already exists. Skipping download.")
+        print("Failed to download " .. fileName)
     end
 
     return fullPath
 end
 
 -- Download main script
-local mainScriptPath = downloadIfMissing(scriptUrl, targetDir)
+local mainScriptPath = downloadFile(scriptUrl, targetDir)
 
 -- Download uninstaller
-downloadIfMissing(uninstallUrl, targetDir)
+downloadFile(uninstallUrl, targetDir)
 
 -- Download playlists.json
-downloadIfMissing(playlistsUrl, targetDir)
+downloadFile(playlistsUrl, targetDir)
 
 -- Run the main script
 print("Running " .. mainScriptPath .. "...")
