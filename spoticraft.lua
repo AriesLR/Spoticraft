@@ -1,4 +1,4 @@
-local scriptUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/spoticraft-logic.lua"
+local scriptUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/lib/program/spoticraft-logic.lua"
 local uninstallUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/lib/program/spoticraft-uninstall.lua"
 local playlistsUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/lib/playlists/default/playlists.json"
 local targetDir = "/alr"
