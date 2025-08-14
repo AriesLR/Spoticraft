@@ -8,6 +8,8 @@
 - [Updating](#updating)
 - [Uninstalling](#uninstalling)
 - [Playlists](#playlists)
+  -[Song Format](#song-format)
+  -[Edit Playlists](#edit-playlists)
 - [Acknowledgements](#acknowledgements)
 - [License](#license)
 - [Tips](#tips)
@@ -72,8 +74,8 @@ The "id" field should contain:
 
 #
 
-### Setting Up Playlists
-There are two main ways to set up playlists:
+### Edit Playlists
+There are two main ways to edit playlists:
 
 #### Option 1: Edit the Local playlists.json
 1. Navigate to the alr/ folder:  
