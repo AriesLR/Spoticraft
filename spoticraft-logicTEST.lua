@@ -50,12 +50,6 @@ local playlist_path = "/alr/playlists.json"
 
 -- Load playlists from JSON file
 function loadPlaylists()
-    if not fs.exists(playlist_path) then
-        -- create empty playlist file
-        local f = fs.open(playlist_path,"w")
-        f.write("[]")
-        f.close()
-    end
     local f = fs.open(playlist_path,"r")
     local content = f.readAll()
     f.close()
