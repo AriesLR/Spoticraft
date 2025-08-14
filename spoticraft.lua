@@ -1,7 +1,8 @@
-local scriptUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/program/spoticraft-logic.lua?raw=1"
-local updateUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/program/update.lua?raw=1"
-local uninstallUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/program/uninstall.lua?raw=1"
-local playlistsUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/playlists/default/playlists.json?raw=1"
+local scriptUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/main/lib/program/spoticraft-logic.lua"
+local downloaderUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/main/lib/program/download-playlist.lua"
+local updateUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/main/lib/program/update.lua"
+local uninstallUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/main/lib/program/uninstall.lua"
+local playlistsUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/main/lib/playlists/default/playlists.json"
 local targetDir = "/alr"
 
 -- Ensure the directory exists
@@ -10,16 +11,13 @@ if not fs.exists(targetDir) then
     fs.makeDir(targetDir)
 end
 
--- Function to download a file (tries to avoid GitHub's cache)
+-- Download from raw URL
 local function downloadFile(url, dir)
-    local bustUrl = url .. "&t=" .. tostring(os.epoch("utc"))
     local fileName = url:match(".+/([^/]+)$")
-    fileName = fileName:gsub("%?.*$", "")
-
     local fullPath = dir .. "/" .. fileName
 
     print("Downloading " .. fileName .. " to " .. dir .. "...")
-    local res = http.get(bustUrl)
+    local res = http.get(url)
     if res then
         local f = fs.open(fullPath, "w")
         f.write(res.readAll())
@@ -41,6 +39,9 @@ downloadFile(uninstallUrl, targetDir)
 
 -- Download updater
 downloadFile(updatelUrl, targetDir)
+
+-- Download playlist downloader
+downloadFile(downloaderUrl, targetDir)
 
 -- Download playlists.json
 local playlistsPath = targetDir .. "/playlists.json"
