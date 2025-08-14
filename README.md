@@ -28,7 +28,7 @@
   - Search for videos by name or paste a url into the search field.
 
 - **Create Playlists**
-  - 
+  - Create your own playlist to easily add all songs to the queue.
 
 ## Installation
 
