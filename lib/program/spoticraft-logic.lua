@@ -82,7 +82,7 @@ function redrawScreen()
 			term.setBackgroundColor(colors.green)
 		end
 		
-		term.setCursorPos((math.floor((width/#tabs)*(i-0.5)))-math.ceil(#tabs[i]/3)+1, 1)
+		term.setCursorPos(math.floor((width / #tabs) * (i - 0.5) - (#tabs[i] / 2)), 1)
 		term.write(tabs[i])
 	end
 
