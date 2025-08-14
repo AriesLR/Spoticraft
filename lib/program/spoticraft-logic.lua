@@ -71,14 +71,14 @@ function redrawScreen()
 	term.setBackgroundColor(colors.green)
 	term.clearLine()
 	
-	tabs = {" Player ", " Search ", " Playlists "}
+	tabs = {" Playe2 ", " Search ", " Playlists "}
 	
 	local total_tab_width = 0
 	for i = 1, #tabs do
 		total_tab_width = total_tab_width + #tabs[i]
 	end
 
-	local min_gap = 0.25
+	local min_gap = 0.15
 	local gap = math.max(min_gap, math.floor((width - total_tab_width) / (#tabs + 1)))
 
 	local used_width = total_tab_width + gap * (#tabs - 1)
