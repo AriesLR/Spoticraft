@@ -64,7 +64,7 @@ Your playlists will be lost during the update process, I plan to fix this eventu
 
 Uninstall the current version of **Spoticraft** by running this command:
 
-  `alr/uninstall.lua`
+    `alr/uninstall.lua`
  
 ## Acknowledgements
 - [Terreng](https://github.com/terreng) - For creating the [base](https://github.com/terreng/computercraft-streaming-music) for this ComputerCraft: Tweaked program.
