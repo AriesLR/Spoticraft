@@ -71,7 +71,7 @@ function redrawScreen()
 	term.setBackgroundColor(colors.green)
 	term.clearLine()
 	
-	tabs = {" Playe2 ", " Search ", " Playlists "}
+	tabs = {" Player ", " Search ", " Playlist "}
 	
 	local total_tab_width = 0
 	for i = 1, #tabs do
