@@ -86,7 +86,7 @@ function redrawScreen()
 	local x = start_x
 	for i = 1, #tabs do
 		if tab == i then
-			term.setTextColor(colors.white)
+			term.setTextColor(colors.black)
 			term.setBackgroundColor(colors.lime)
 		else
 			term.setTextColor(colors.gray)
