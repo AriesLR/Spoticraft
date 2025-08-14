@@ -77,13 +77,12 @@ function redrawScreen()
 	for i = 1, #tabs do
 		total_tab_width = total_tab_width + #tabs[i]
 	end
-	-- Add extra spacing between tabs for better appearance
-	local min_gap = 2 -- minimum gap between tabs
+
+	local min_gap = 1
 	local gap = math.max(min_gap, math.floor((width - total_tab_width) / (#tabs + 1)))
 
-	-- Center the tabs by calculating the starting x position
 	local used_width = total_tab_width + gap * (#tabs - 1)
-	local start_x = math.floor((width - used_width) / 2) + 1
+	local start_x = math.max(1, math.floor((width - used_width) / 2) + 1)
 	local x = start_x
 	for i = 1, #tabs do
 		if tab == i then
