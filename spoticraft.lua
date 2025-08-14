@@ -1,6 +1,6 @@
 -- spoticraft.lua
 local scriptUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/spoticraft-logic.lua"
-local targetDir = "/rom/alr"
+local targetDir = "/alr"
 
 -- Ensure the directory exists
 if not fs.exists(targetDir) then
