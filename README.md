@@ -6,6 +6,7 @@
 - [Features](#features)
 - [Installation](#installation)
 - [Updating](#updating)
+- [Uninstalling](#uninstalling)
 - [Acknowledgements](#acknowledgements)
 - [License](#license)
 - [Tips](#tips)
@@ -58,6 +59,12 @@ To update **Spoticraft**, follow these steps:
 
 
 Your playlists will be lost during the update process, I plan to fix this eventually.
+
+## Uninstalling
+
+Uninstall the current version of **Spoticraft** by running this command:
+
+  `alr/uninstall.lua`
  
 ## Acknowledgements
 - [Terreng](https://github.com/terreng) - For creating the [base](https://github.com/terreng/computercraft-streaming-music) for this ComputerCraft: Tweaked program.
