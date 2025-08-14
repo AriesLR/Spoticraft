@@ -14,6 +14,14 @@ else
     print("spoticraft-logic.lua not found, skipping...")
 end
 
+-- Delete download-playlist.lua
+if fs.exists("/alr/download-playlist.lua") then
+    print("Deleting download-playlist.lua...")
+    fs.delete("/alr/download-playlist.lua")
+else
+    print("download-playlist.lua not found, skipping...")
+end
+
 -- Delete spoticraft.lua
 if fs.exists("/spoticraft.lua") then
     print("Deleting spoticraft.lua...")
