@@ -1,6 +1,6 @@
-local scriptUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/program/spoticraft-logic.lua?raw=1"
-local uninstallUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/program/uninstall.lua?raw=1"
-local playlistsUrl = "https://github.com/AriesLR/Spoticraft/blob/main/lib/playlists/default/playlists.json?raw=1"
+local scriptUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/lib/program/spoticraft-logic.lua"
+local uninstallUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/lib/program/uninstall.lua"
+local playlistsUrl = "https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/lib/playlists/default/playlists.json"
 local targetDir = "/alr"
 
 -- Ensure the directory exists

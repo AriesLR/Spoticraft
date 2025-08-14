@@ -9,11 +9,12 @@ if not fs.exists(targetDir) then
     fs.makeDir(targetDir)
 end
 
--- Function to download a file (always busts cache)
+-- Function to download a file (tries to avoid GitHub's cache)
 local function downloadFile(url, dir)
-    -- Append a timestamp to force fresh download
-    local bustUrl = url .. "?t=" .. tostring(os.epoch("utc"))
+    local bustUrl = url .. "&t=" .. tostring(os.epoch("utc"))
     local fileName = url:match(".+/([^/]+)$")
+    fileName = fileName:gsub("%?.*$", "")
+
     local fullPath = dir .. "/" .. fileName
 
     print("Downloading " .. fileName .. " to " .. dir .. "...")
