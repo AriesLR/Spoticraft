@@ -89,7 +89,7 @@ function redrawScreen()
 			term.setTextColor(colors.white)
 			term.setBackgroundColor(colors.lime)
 		else
-			term.setTextColor(colors.Gray)
+			term.setTextColor(colors.gray)
 			term.setBackgroundColor(colors.green)
 		end
 		term.setCursorPos(x, 1)
