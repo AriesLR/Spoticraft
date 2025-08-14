@@ -65,7 +65,7 @@ function uiLoop()
                 term.setCursorPos(2, 7)
                 -- Download using wget to /alr
                 shell.run("wget", last_input, "/alr/playlist.json")
-                term.setCursorPos(2, 12)
+                term.setCursorPos(2, 16)
                 term.write("Done! Press any key to continue.")
                 os.pullEvent("key")
                 last_input = nil
