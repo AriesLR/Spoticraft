@@ -78,7 +78,7 @@ function redrawScreen()
 		total_tab_width = total_tab_width + #tabs[i]
 	end
 
-	local min_gap = 1
+	local min_gap = 0.25
 	local gap = math.max(min_gap, math.floor((width - total_tab_width) / (#tabs + 1)))
 
 	local used_width = total_tab_width + gap * (#tabs - 1)
