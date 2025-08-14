@@ -14,7 +14,7 @@ function redrawScreen()
     term.clearLine()
 
     -- Draw single tab
-    local tab_label = " Spoticraft Playlist Downloader "
+    local tab_label = " Playlist Downloader "
     local x = math.floor((width - #tab_label) / 2) + 1
     term.setCursorPos(x, 1)
     term.setTextColor(colors.black)
@@ -34,8 +34,8 @@ function redrawScreen()
     term.setTextColor(colors.lightGray)
     print("Usage: ")
     print(" ")
-    print("    - Paste a direct file URL")
-    print("    - Press Enter to download")
+    print("  - Paste a direct file URL")
+    print("  - Press Enter to download")
     print(" ")
     print(" ")
     print(" ")
