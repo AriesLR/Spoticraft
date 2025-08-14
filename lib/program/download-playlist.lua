@@ -64,7 +64,7 @@ function uiLoop()
                 term.setTextColor(colors.lightGray)
                 term.setCursorPos(2, 7)
                 -- Download using wget to /alr
-                shell.run("wget", last_input, "/alr/playlist.json")
+                shell.run("wget", last_input, "/alr/playlists.json")
                 term.setCursorPos(2, 16)
                 term.write("Done! Press any key to continue.")
                 os.pullEvent("key")
