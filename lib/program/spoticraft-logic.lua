@@ -47,10 +47,10 @@ local playlist_path = "/alr/playlists.json" -- "/alr/playlists.json" for Release
 
 -- Load playlists from JSON file
 function loadPlaylists()
-    local f = fs.open(playlist_path,"r")
-    local content = f.readAll()
-    f.close()
-    return textutils.unserialiseJSON(content) or {}
+	local f = fs.open(playlist_path,"r")
+	local content = f.readAll()
+	f.close()
+	return textutils.unserialiseJSON(content) or {}
 end
 
 -- Load playlists at startup
@@ -77,9 +77,14 @@ function redrawScreen()
 	for i = 1, #tabs do
 		total_tab_width = total_tab_width + #tabs[i]
 	end
-	local gap = math.floor((width - total_tab_width) / (#tabs + 1))
+	-- Add extra spacing between tabs for better appearance
+	local min_gap = 2 -- minimum gap between tabs
+	local gap = math.max(min_gap, math.floor((width - total_tab_width) / (#tabs + 1)))
 
-	local x = gap + 1
+	-- Center the tabs by calculating the starting x position
+	local used_width = total_tab_width + gap * (#tabs - 1)
+	local start_x = math.floor((width - used_width) / 2) + 1
+	local x = start_x
 	for i = 1, #tabs do
 		if tab == i then
 			term.setTextColor(colors.white)
@@ -135,7 +140,7 @@ function drawNowPlaying()
 
 	if playing then
 		term.setBackgroundColor(colors.red)
-    	term.setTextColor(colors.white)
+		term.setTextColor(colors.white)
 		term.setCursorPos(2, 6)
 		term.write(" Stop ")
 	else
@@ -291,69 +296,69 @@ end
 
 -- Draw the playlist tab
 function drawPlaylists()
-    term.setBackgroundColor(colors.black)
-    term.setTextColor(colors.white)
-    term.setCursorPos(2,3)
+	term.setBackgroundColor(colors.black)
+	term.setTextColor(colors.white)
+	term.setCursorPos(2,3)
 
-    if in_playlist and selectedPlaylist then
-        local vids = playlists[selectedPlaylist].videos
-        local totalPages = math.ceil(#vids / SONGS_PER_PAGE)
-        local startIdx = (playlistPage - 1) * SONGS_PER_PAGE + 1
-        local endIdx = math.min(startIdx + SONGS_PER_PAGE - 1, #vids)
+	if in_playlist and selectedPlaylist then
+		local vids = playlists[selectedPlaylist].videos
+		local totalPages = math.ceil(#vids / SONGS_PER_PAGE)
+		local startIdx = (playlistPage - 1) * SONGS_PER_PAGE + 1
+		local endIdx = math.min(startIdx + SONGS_PER_PAGE - 1, #vids)
 
-        for i = startIdx, endIdx do
-            local video = vids[i]
-            local displayIdx = i - startIdx + 1
-            term.setCursorPos(2, 3 + (displayIdx-1)*2)
-            term.setTextColor(colors.white)
-            term.write(video.name or ("Video " .. i))
-            term.setCursorPos(2, 4 + (displayIdx-1)*2)
-            term.setTextColor(colors.lightGray)
-            term.write(video.artist or "Unknown Artist")
-        end
+		for i = startIdx, endIdx do
+			local video = vids[i]
+			local displayIdx = i - startIdx + 1
+			term.setCursorPos(2, 3 + (displayIdx-1)*2)
+			term.setTextColor(colors.white)
+			term.write(video.name or ("Video " .. i))
+			term.setCursorPos(2, 4 + (displayIdx-1)*2)
+			term.setTextColor(colors.lightGray)
+			term.write(video.artist or "Unknown Artist")
+		end
 
-        -- Page controls
-        term.setCursorPos(2, 3 + SONGS_PER_PAGE*2 + 1)
-        term.setTextColor(colors.white)
-        term.setBackgroundColor(colors.gray)
-        if playlistPage > 1 then
-            term.write("< Prev ")
-        end
-        term.setBackgroundColor(colors.gray)
-        term.write(" Page " .. playlistPage .. "/" .. totalPages .. " ")
-        if playlistPage < totalPages then
-            term.write(" Next >")
-        end
+		-- Page controls
+		term.setCursorPos(2, 3 + SONGS_PER_PAGE*2 + 1)
+		term.setTextColor(colors.white)
+		term.setBackgroundColor(colors.gray)
+		if playlistPage > 1 then
+			term.write("< Prev ")
+		end
+		term.setBackgroundColor(colors.gray)
+		term.write(" Page " .. playlistPage .. "/" .. totalPages .. " ")
+		if playlistPage < totalPages then
+			term.write(" Next >")
+		end
 
-        -- Back button
-        term.setCursorPos(2, 3 + SONGS_PER_PAGE*2 + 3)
-        term.setTextColor(colors.white)
-        term.setBackgroundColor(colors.gray)
-        term.write("Back")
+		-- Back button
+		term.setCursorPos(2, 3 + SONGS_PER_PAGE*2 + 3)
+		term.setTextColor(colors.white)
+		term.setBackgroundColor(colors.gray)
+		term.write("Back")
 
 		-- Add All to Queue button
 		term.setCursorPos(10, 3 + SONGS_PER_PAGE*2 + 3)
 		term.setTextColor(colors.white)
 		term.setBackgroundColor(colors.gray)
 		term.write("Add All to Queue")
-    else
-        -- Show playlists (no paging needed)
-        for i, pl in ipairs(playlists) do
-            term.setCursorPos(2, 3 + (i-1)*2)
-            term.setTextColor(colors.white)
-            term.write(pl.name)
-            term.setCursorPos(2, 4 + (i-1)*2)
-            term.setTextColor(colors.lightGray)
-            term.write(#pl.videos .. " video(s)")
-        end
-    end
+	else
+		-- Show playlists (no paging needed)
+		for i, pl in ipairs(playlists) do
+			term.setCursorPos(2, 3 + (i-1)*2)
+			term.setTextColor(colors.white)
+			term.write(pl.name)
+			term.setCursorPos(2, 4 + (i-1)*2)
+			term.setTextColor(colors.lightGray)
+			term.write(#pl.videos .. " video(s)")
+		end
+	end
 end
 
 -- Handle clicks in the playlist tab
 function handlePlaylistClick(x, y)
-    if in_playlist and selectedPlaylist then
-        local vids = playlists[selectedPlaylist].videos
-        local totalPages = math.ceil(#vids / SONGS_PER_PAGE)
+	if in_playlist and selectedPlaylist then
+		local vids = playlists[selectedPlaylist].videos
+		local totalPages = math.ceil(#vids / SONGS_PER_PAGE)
 		-- Prev button
 		if playlistPage > 1 and y == 3 + SONGS_PER_PAGE*2 + 1 and x >= 2 and x <= 8 then
 			playlistPage = playlistPage - 1
@@ -399,31 +404,31 @@ function handlePlaylistClick(x, y)
 			redrawScreen()
 			return
 		end
-        -- Select a video to queue
-        for i, video in ipairs(vids) do
-            if y == 3 + (i-1)*2 or y == 4 + (i-1)*2 then
-                table.insert(queue, {
-                    id = video.id,
-                    name = video.name or "Direct Video",
-                    artist = video.artist or "YouTube",
-                    type = "video"
-                })
-                os.queueEvent("audio_update")
-                redrawScreen()
-                return
-            end
-        end
-    else
-        -- Select a playlist
-        for i, pl in ipairs(playlists) do
-            if y == 3 + (i-1)*2 or y == 4 + (i-1)*2 then
-                selectedPlaylist = i
-                in_playlist = true
-                redrawScreen()
-                return
-            end
-        end
-    end
+		-- Select a video to queue
+		for i, video in ipairs(vids) do
+			if y == 3 + (i-1)*2 or y == 4 + (i-1)*2 then
+				table.insert(queue, {
+					id = video.id,
+					name = video.name or "Direct Video",
+					artist = video.artist or "YouTube",
+					type = "video"
+				})
+				os.queueEvent("audio_update")
+				redrawScreen()
+				return
+			end
+		end
+	else
+		-- Select a playlist
+		for i, pl in ipairs(playlists) do
+			if y == 3 + (i-1)*2 or y == 4 + (i-1)*2 then
+				selectedPlaylist = i
+				in_playlist = true
+				redrawScreen()
+				return
+			end
+		end
+	end
 end
 
 function uiLoop()
@@ -504,7 +509,7 @@ function uiLoop()
 						end
 						
 						if tab == 3 and in_search_result == false then
-    						handlePlaylistClick(x, y)
+							handlePlaylistClick(x, y)
 						end
 
 						if tab == 2 and in_search_result == false then
