@@ -71,7 +71,7 @@ function redrawScreen()
 	term.setBackgroundColor(colors.green)
 	term.clearLine()
 	
-	tabs = {"Player", " Search ", "Playlists"}
+	tabs = {" MP3 ", " Search ", " Playlists "}
 	
 	for i=1,#tabs,1 do
 		if tab == i then
