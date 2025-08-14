@@ -30,7 +30,9 @@
 
 ## Installation
 
-To install **Spoticraft**, simply run this command `wget run https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/spoticraft.lua`
+To install **Spoticraft**, simply run this command:
+
+`wget run https://raw.githubusercontent.com/AriesLR/Spoticraft/refs/heads/main/spoticraft.lua`
 
 
 ## Updating
