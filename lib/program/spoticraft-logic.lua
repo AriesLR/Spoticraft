@@ -404,8 +404,12 @@ function handlePlaylistClick(x, y)
 			return
 		end
 		-- Select a video to queue
-		for i, video in ipairs(vids) do
-			if y == 3 + (i-1)*2 or y == 4 + (i-1)*2 then
+		local startIdx = (playlistPage - 1) * SONGS_PER_PAGE + 1
+		local endIdx = math.min(startIdx + SONGS_PER_PAGE - 1, #vids)
+		for i = startIdx, endIdx do
+			local displayIdx = i - startIdx + 1
+			if y == 3 + (displayIdx-1)*2 or y == 4 + (displayIdx-1)*2 then
+				local video = vids[i]
 				table.insert(queue, {
 					id = video.id,
 					name = video.name or "Direct Video",
