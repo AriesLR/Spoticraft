@@ -16,7 +16,7 @@ end
 
 
 -- Temporary script to delete this script after it finishes
-local selfPath = "/alr/spoticraft-uninstall.lua"
+local selfPath = "/alr/uninstall.lua"
 local temp = fs.open("/delete_self.lua", "w")
 temp.write([[
 sleep(0.5)
