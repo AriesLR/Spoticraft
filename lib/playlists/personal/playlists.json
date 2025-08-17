@@ -108,6 +108,7 @@
     {
         "name": "Personal Playlist",
         "videos": [
+            {"id": "pRmbQCthcY8", "name": "Horns", "artist": "Charlie Classic"},
             {"id": "EWMPVn1kgIQ", "name": "Enormous Penis", "artist": "Da Vinci's Notebook"},
             {"id": "n238ttFVL60", "name": "Maldita Muerte Pt. II", "artist": "ReyMenn"},
             {"id": "iLC-tHvkNvI", "name": "The Chain (2004 Remaster)", "artist": "Fleetwood Mac"},
