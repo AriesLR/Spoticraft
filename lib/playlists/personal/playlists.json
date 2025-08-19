@@ -108,6 +108,9 @@
     {
         "name": "Personal Playlist",
         "videos": [
+            {"id": "KXI62VKJG9U", "name": "I Have Sex", "artist": "Scoochie Boochie"},
+            {"id": "yo0cLeALq9Q", "name": "IM COMING", "artist": "John Balaya"},
+            {"id": "WqIezla-QFM", "name": "Rally Station 2", "artist": "Noxygen"},
             {"id": "pRmbQCthcY8", "name": "Horns", "artist": "Charlie Classic"},
             {"id": "EWMPVn1kgIQ", "name": "Enormous Penis", "artist": "Da Vinci's Notebook"},
             {"id": "n238ttFVL60", "name": "Maldita Muerte Pt. II", "artist": "ReyMenn"},
