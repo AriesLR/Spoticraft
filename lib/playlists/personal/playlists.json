@@ -108,6 +108,10 @@
     {
         "name": "Personal Playlist",
         "videos": [
+            {"id": "m21MujHQqWc", "name": "Big Iron", "artist": "Marty Robbins"},
+            {"id": "0fIWxMbWcRo", "name": "The Wave", "artist": "Commonminds"},
+            {"id": "I1aEzur5Zwo", "name": "I GOT", "artist": "Noxygen"},
+            {"id": "q0EpIzx9pi0", "name": "Beverly Hills", "artist": "Weezer"},
             {"id": "KXI62VKJG9U", "name": "I Have Sex", "artist": "Scoochie Boochie"},
             {"id": "yo0cLeALq9Q", "name": "IM COMING", "artist": "John Balaya"},
             {"id": "WqIezla-QFM", "name": "Rally Station 2", "artist": "Noxygen"},
